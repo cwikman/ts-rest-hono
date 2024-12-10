@@ -1,7 +1,7 @@
 {
   "name": "ts-rest-hono",
   "description": "Hono integration for @ts-rest",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "files": [
     "dist"
   ],
