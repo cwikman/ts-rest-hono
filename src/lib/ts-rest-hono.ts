@@ -80,14 +80,14 @@ export type Options<E extends HonoEnv = HonoEnv> = {
     error: RequestValidationError,
     c: Context<E, any>
   ) => {
-    error: unknown;
+    error: any;
     status: StatusCode;
   };
   responseValidationErrorHandler?: (
     error: ResponseValidationError,
     c: Context<E, any>
   ) => {
-    error: unknown;
+    error: any;
     status: StatusCode;
   };
 };
@@ -179,8 +179,8 @@ const transformAppRouteQueryImplementation = ({
             },
           });
 
-          return c.json(response.body, statusCode);
-        } catch (err) {
+          return c.json(response.body as any, statusCode);
+        } catch (err: any) {
           if (err instanceof ResponseValidationError) {
             if (options.responseValidationErrorHandler) {
               const { error, status } = options.responseValidationErrorHandler(
@@ -191,7 +191,7 @@ const transformAppRouteQueryImplementation = ({
             }
           }
 
-          return c.json(err, 400);
+          return c.json(err, 400 as StatusCode);
         }
       }
 
@@ -276,8 +276,8 @@ const transformAppRouteMutationImplementation = ({
             },
           });
 
-          return c.json(response.body, statusCode);
-        } catch (err) {
+          return c.json(response.body as any, statusCode);
+        } catch (err: any) {
           if (err instanceof ResponseValidationError) {
             if (options.responseValidationErrorHandler) {
               const { error, status } = options.responseValidationErrorHandler(
@@ -363,7 +363,7 @@ export const createHonoEndpoints = <
       } else {
         transformAppRouteMutationImplementation({
           route,
-          schema: routerViaPath,
+          schema: routerViaPath as AppRouteMutation,
           app,
           options: options as any,
           operationId,

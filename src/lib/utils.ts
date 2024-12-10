@@ -1,13 +1,12 @@
 import {
-  isZodObject,
-  type AppRouteMutation,
-  type AppRouteQuery,
+  AppRoute,
   extractZodObjectShape,
   GetFieldType,
+  isZodObject
 } from "@ts-rest/core";
 import type { Context } from "hono";
-import { ResolvableOption } from "./ts-rest-hono";
 import { z } from "zod";
+import { ResolvableOption } from "./ts-rest-hono";
 
 export function getValue<
   TData,
@@ -46,7 +45,7 @@ export function resolveOption(
  * @returns object
  */
 export function maybeTransformQueryFromSchema(
-  schema: AppRouteQuery | AppRouteMutation,
+  schema: AppRoute,
   query: Record<string, any>,
   c: Context<any>
 ) {
